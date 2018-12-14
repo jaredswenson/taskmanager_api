@@ -15,6 +15,7 @@ class UsersController < ApplicationController
   def login
     authenticate params[:email], params[:password]
   end
+
   def test
     render json: {
           message: 'You have passed authentication and authorization test'
@@ -40,7 +41,8 @@ class UsersController < ApplicationController
     params.permit(
       :name,
       :email,
-      :password
+      :password,
+      :is_premium
     )
   end
 end

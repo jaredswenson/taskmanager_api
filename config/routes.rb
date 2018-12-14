@@ -8,4 +8,7 @@ Rails.application.routes.draw do
 
   #task routes
   post 'task/create', to: 'tasks#create'
+  post 'task/get', to: 'tasks#get'
+  post 'task/complete', to: 'tasks#complete'
+  post 'task/hours', to: 'tasks#hours'
 end

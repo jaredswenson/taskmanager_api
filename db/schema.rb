@@ -15,12 +15,14 @@ ActiveRecord::Schema.define(version: 20181124193620) do
   create_table "tasks", force: :cascade do |t|
     t.integer  "user_id"
     t.string   "name"
-    t.string   "type"
-    t.datetime "due_date"
+    t.string   "due_date"
     t.integer  "parent_id"
     t.integer  "time_estimate"
     t.boolean  "recurring"
     t.integer  "recurring_frequency"
+    t.boolean  "is_completed"
+    t.integer  "total_time"
+    t.integer  "days_remaining"
     t.datetime "created_at",          null: false
     t.datetime "updated_at",          null: false
   end
@@ -29,6 +31,7 @@ ActiveRecord::Schema.define(version: 20181124193620) do
     t.string   "name"
     t.string   "email"
     t.string   "password_digest"
+    t.boolean  "is_premium"
     t.datetime "created_at",      null: false
     t.datetime "updated_at",      null: false
   end

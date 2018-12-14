@@ -3,12 +3,14 @@ class CreateTasks < ActiveRecord::Migration[5.0]
     create_table :tasks do |t|
     	t.integer :user_id
     	t.string :name
-    	t.string :type
-    	t.datetime :due_date
-    	t.integer :parent_id
-    	t.integer :time_estimate
+    	t.string :due_date, :null => true
+    	t.integer :parent_id, :null => true
+    	t.integer :time_estimate, :null => true
     	t.boolean :recurring
-    	t.integer :recurring_frequency
+    	t.integer :recurring_frequency, :null => true
+      t.boolean :is_completed
+      t.integer :total_time, :null => true
+      t.integer :days_remaining, :null => true
       t.timestamps
     end
   end
