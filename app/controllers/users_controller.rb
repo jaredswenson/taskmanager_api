@@ -27,6 +27,7 @@ class UsersController < ApplicationController
     command = AuthenticateUser.call(email, password)
 
     if command.success?
+      puts User.where(email: email)
       render json: {
         access_token: command.result,
         message: 'Login Successful',

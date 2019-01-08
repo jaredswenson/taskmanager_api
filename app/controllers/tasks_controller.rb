@@ -55,10 +55,13 @@ class TasksController < ApplicationController
   end
 
   private
-  def tasks(user, parent)        
+  def tasks(user, parent)  
+      parents = Task.where(user_id: user, parent_id: 0, is_completed: false)
+      children =  Task.where(user_id: user, is_completed: false)
       render json: {
         message: 'got tasks',
-        tasks: Task.where(user_id: user)
+        parentTasks: parents.order(:due_date),
+        childTasks: children.where.not(parent_id: 0)
       }
   end
 
