@@ -56,10 +56,10 @@ class TasksController < ApplicationController
   def tasks(user, parent)  
       @parents = Task.where(user_id: user, parent_id: 0, is_completed: false)
       # date nonsense till I change date to date rather than string
-      @parents.each do |item|
-        item.due_date = Date.strptime(item.due_date, '%m/%d/%Y')
-        puts "Parent #{item.due_date}"
-      end
+      # @parents.each do |item|
+      #   item.due_date = Date.strptime(item.due_date, '%m/%d/%Y')
+      #   puts "Parent #{item.due_date}"
+      # end
       @sorted = @parents.sort_by { |parent| parent["due_date"].split('/').reverse }
       @sorted.each do |task|
         task.due_date = Date.parse(task.due_date)
