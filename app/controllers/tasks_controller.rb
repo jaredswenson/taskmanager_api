@@ -63,7 +63,6 @@ class TasksController < ApplicationController
       @sorted = @parents.sort_by { |parent| parent["due_date"].split('/').reverse }
       @sorted.each do |task|
         task.due_date = Date.parse(task.due_date)
-        puts "Parent #{task.due_date}"
       end
       # end date nonsense
       @children =  Task.where(user_id: user, is_completed: false).where.not(parent_id: 0).sort_by{ |child| child["time_estimate"] };
