@@ -3,6 +3,8 @@ Rails.application.routes.draw do
   
   #add our register route
   post 'auth/register', to: 'users#register'
+  post 'auth/getuserbyemail', to: 'users#getuserbyemail'
+  post 'auth/resetpassword', to: 'users#resetpassword'
   post 'auth/login', to: 'users#login'
   get 'set', to: 'users#set'
 
