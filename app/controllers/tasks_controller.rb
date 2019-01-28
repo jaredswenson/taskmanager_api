@@ -41,30 +41,24 @@ class TasksController < ApplicationController
       child_time = @task[:time_estimate]
       parent_time = @parent[:total_time]
       new_total = parent_time - child_time
-      Task.update(id, is_completed: true)
+      Task.destroy(id);
       Task.update(parent_id, total_time: new_total)
     else
       @tasks = Task.where(parent_id: id)
       @tasks.each do |t|
         Task.update(t.id, is_completed: true)
       end
-      Task.update(id, is_completed: true)
+      Task.destroy(id);
     end
   end
 
   private
   def tasks(user, parent)  
       @parents = Task.where(user_id: user, parent_id: 0, is_completed: false)
-      # date nonsense till I change date to date rather than string
-      # @parents.each do |item|
-      #   item.due_date = Date.strptime(item.due_date, '%m/%d/%Y')
-      #   puts "Parent #{item.due_date}"
-      # end
       @sorted = @parents.sort_by { |parent| parent["due_date"].split('/').reverse }
       @sorted.each do |task|
         task.due_date = Date.parse(task.due_date)
       end
-      # end date nonsense
       @children =  Task.where(user_id: user, is_completed: false).where.not(parent_id: 0).sort_by{ |child| child["time_estimate"] };
 
       render json: {
