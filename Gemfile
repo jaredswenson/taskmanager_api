@@ -9,7 +9,7 @@ end
 gem 'rack-cors', :require => 'rack/cors'
 
 gem 'jwt'
-
+gem 'sendgrid-ruby'
 gem 'simple_command'
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '~> 5.0.7'

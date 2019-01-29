@@ -7,4 +7,4 @@ auth_getuserbyemail POST /auth/getuserbyemail(.:format) users#getuserbyemail
         task_create POST /task/create(.:format)         tasks#create
            task_get POST /task/get(.:format)            tasks#get
       task_complete POST /task/complete(.:format)       tasks#complete
-         task_hours POST /task/hours(.:format)          tasks#hours
+        task_update POST /task/update(.:format)         tasks#update

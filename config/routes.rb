@@ -12,6 +12,6 @@ Rails.application.routes.draw do
   post 'task/create', to: 'tasks#create'
   post 'task/get', to: 'tasks#get'
   post 'task/complete', to: 'tasks#complete'
-  post 'task/hours', to: 'tasks#hours'
+  post 'task/update', to: 'tasks#update'
 
 end

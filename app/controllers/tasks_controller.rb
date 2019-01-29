@@ -29,7 +29,7 @@ class TasksController < ApplicationController
     tasks params[:user_id], params[:parent_id]
   end
 
-  # POST /get
+  # POST /complete
   def complete
     id = params[:task_id]
     @task = Task.find(id)
@@ -52,6 +52,16 @@ class TasksController < ApplicationController
     end
   end
 
+    # POST /update
+  def update
+    puts "PARAMS #{params[:task_id]} #{params[:due_date]} #{params[:time_estimate]} #{params[:name]}"
+    @task = Task.update(params[:task_id], due_date: params[:due_date], time_estimate: params[:time_estimate], name: params[:name]);
+    render json: {
+        message: 'updated',
+        task: @task,
+      }
+  end
+
   private
   def tasks(user, parent)  
       @parents = Task.where(user_id: user, parent_id: 0, is_completed: false)
@@ -60,7 +70,7 @@ class TasksController < ApplicationController
         task.due_date = Date.parse(task.due_date)
       end
       @children =  Task.where(user_id: user, is_completed: false).where.not(parent_id: 0).sort_by{ |child| child["time_estimate"] };
-
+      
       render json: {
         message: 'got tasks',
         parentTasks: @sorted,

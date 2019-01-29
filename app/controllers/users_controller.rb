@@ -1,6 +1,7 @@
 class UsersController < ApplicationController
 	skip_before_action :authenticate_request, only: %i[login register getuserbyemail resetpassword]
-
+  require 'sendgrid-ruby'
+  include SendGrid
 	# POST /register
   def register
     @user = User.create(user_params)
@@ -20,10 +21,21 @@ class UsersController < ApplicationController
   def getuserbyemail
     @user = User.where(email: params[:email]);
     @code = rand.to_s[2..7]
+    from = SendGrid::Email.new(email: 'jswen15@gmail.com')
+    to = SendGrid::Email.new(email: params[:email])
+    subject = 'Donezo Password Reset'
+    content = SendGrid::Content.new(type: 'text/plain', value: 'Your password reset code is ' + @code);
+    mail = SendGrid::Mail.new(from, subject, to, content)
+
+    sg = SendGrid::API.new(api_key: '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')
+    response = sg.client.mail._('send').post(request_body: mail.to_json)
+    puts response.status_code
+    puts response.body
+    puts response.headers
     render json: {
-          user: @user,
-          code: @code
-        }
+      user: @user,
+      code: @code
+    }
   end
 
   #POST /resetpassword 
