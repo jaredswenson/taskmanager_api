@@ -27,7 +27,7 @@ class UsersController < ApplicationController
     content = SendGrid::Content.new(type: 'text/plain', value: 'Your password reset code is ' + @code);
     mail = SendGrid::Mail.new(from, subject, to, content)
 
-    sg = SendGrid::API.new(api_key: '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')
+    sg = SendGrid::API.new(api_key: 'SENDGRID_API_KEY')
     response = sg.client.mail._('send').post(request_body: mail.to_json)
     puts response.status_code
     puts response.body
