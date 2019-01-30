@@ -21,7 +21,7 @@ class UsersController < ApplicationController
   def getuserbyemail
     @user = User.where(email: params[:email]);
     @code = rand.to_s[2..7]
-    from = SendGrid::Email.new(email: 'jswen15@gmail.com')
+    from = SendGrid::Email.new(email: 'donezoapp@gmail.com')
     to = SendGrid::Email.new(email: params[:email])
     subject = 'Donezo Password Reset'
     content = SendGrid::Content.new(type: 'text/plain', value: 'Your password reset code is ' + @code);
