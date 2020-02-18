@@ -4,6 +4,7 @@ class UsersController < ApplicationController
   include SendGrid
 	# POST /register
   def register
+    puts "USER #{user_params}"
     @user = User.create(user_params)
    if @user.save
     response = { message: 'User created successfully'}

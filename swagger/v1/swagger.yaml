@@ -1,0 +1,208 @@
+---
+openapi: 3.0.1
+info:
+  title: API V1
+  version: v1
+paths:
+  "/task/create":
+    post:
+      summary: Creates a task
+      tags:
+      - Tasks
+      consumes:
+      - application/json
+      - application/xml
+      parameters:
+      - name: task
+        in: body
+        schema:
+          type: object
+          properties:
+            user_id:
+              type: integer
+            name:
+              type: string
+            is_completed:
+              type: boolean
+          required:
+          - user_id
+          - name
+      responses:
+        '200':
+          description: task created created
+        '422':
+          description: invalid request
+  "/task/categories":
+    post:
+      summary: Gets categories you can assign to a task
+      tags:
+      - Tasks
+      consumes:
+      - application/json
+      - application/xml
+      parameters:
+      - name: category
+        in: body
+        schema:
+          type: object
+          properties: {}
+          required: []
+      responses:
+        '200':
+          description: Categories
+        '422':
+          description: invalid request
+  "/task/update":
+    post:
+      summary: Update a task
+      tags:
+      - Tasks
+      consumes:
+      - application/json
+      - application/xml
+      parameters:
+      - name: task
+        in: body
+        schema:
+          type: object
+          properties:
+            id:
+              type: integer
+            user_id:
+              type: integer
+            name:
+              type: string
+            category:
+              type: string
+            is_completed:
+              type: boolean
+          required:
+          - user_id
+          - name
+      responses:
+        '200':
+          description: task created created
+        '422':
+          description: invalid request
+  "/task/get":
+    post:
+      summary: Retrieves tasks for a user
+      tags:
+      - Tasks
+      produces:
+      - application/json
+      - application/xml
+      parameters:
+      - name: user_id
+        in: body
+        schema:
+          type: object
+          properties:
+            user_id:
+              type: integer
+            is_completed:
+              type: boolean
+          required:
+          - user_id
+      responses:
+        '200':
+          description: tasks found
+          schema:
+            type: Array
+            properties:
+              id:
+                type: integer
+              user_id:
+                type: integer
+              name:
+                type: string
+              is_completed:
+                type: boolean
+            required:
+            - id
+            - user_id
+            - name
+            - is_completed
+        '404':
+          description: tasks not found
+        '406':
+          description: unsupported accept header
+  "/auth/register":
+    post:
+      summary: Register a user
+      tags:
+      - User
+      produces:
+      - application/json
+      - application/xml
+      parameters:
+      - name: user_id
+        in: body
+        schema:
+          type: object
+          properties:
+            name:
+              type: string
+            email:
+              type: string
+            password:
+              type: string
+          required:
+          - user_id
+      responses:
+        '200':
+          description: tasks found
+          schema:
+            type: Array
+            properties:
+              id:
+                type: integer
+              name:
+                type: string
+              email:
+                type: string
+            required:
+            - id
+            - name
+            - email
+        '404':
+          description: tasks not found
+        '406':
+          description: unsupported accept header
+  "/auth/login":
+    post:
+      summary: Log a user in
+      tags:
+      - User
+      produces:
+      - application/json
+      - application/xml
+      parameters:
+      - name: user_id
+        in: body
+        schema:
+          type: object
+          properties:
+            email:
+              type: string
+            password:
+              type: string
+          required:
+          - user_id
+      responses:
+        '200':
+          description: tasks found
+          schema:
+            type: Array
+            properties:
+              email:
+                type: string
+              password:
+                type: string
+            required:
+            - email
+            - password
+        '404':
+          description: tasks not found
+        '406':
+          description: unsupported accept header
